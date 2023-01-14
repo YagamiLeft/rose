@@ -26,6 +26,7 @@ export const SignInPage: React.FC = () => {
     setIsLoading(true);
     const isMatchAccount = userName === 'admin' && password === 'admin';
     isMatchAccount ? navigate('/home') : setIsOpenSnackBar(true);
+    setIsLoading(false);
   };
 
   const onChangeUserName = (userName: string) => {
