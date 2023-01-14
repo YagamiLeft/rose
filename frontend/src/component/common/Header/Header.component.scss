@@ -1,0 +1,15 @@
+.header-component {
+  flex-grow: 1;
+
+  .header-bar {
+    background: rgb(172, 29, 4);
+  }
+
+  .menu-icon {
+    margin-right: 16px;
+  }
+
+  .bar-typography {
+    flex-grow: 1;
+  }
+}
