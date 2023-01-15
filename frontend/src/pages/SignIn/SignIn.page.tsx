@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // Template
-import { SignInTemplate, SignInTemplateProps } from '../../component/templates/SignIn/SignIn.template';
+import { SignInTemplate, SignInTemplateProps } from '../../components/templates/SignIn/SignIn.template';
 // Interfaces
-import { SnackBarComponentProps } from '../../component/organisms/common/SnackBar/SnackBar.component';
-import { LoadingComponentProps } from '../../component/organisms/common/Loading/Loading.component';
+import { SnackBarComponentProps } from '../../components/organisms/common/SnackBar/SnackBar.component';
+import { LoadingComponentProps } from '../../components/organisms/common/Loading/Loading.component';
 
 export const SignInPage: React.FC = () => {
   const navigate = useNavigate();
