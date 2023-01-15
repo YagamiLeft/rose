@@ -2,13 +2,18 @@
 import React from 'react';
 // UIs
 import { Container } from '@mui/material';
+// Components
+import { HeaderComponent } from '../../organisms/common/Header/Header.component';
 // Styles
 import './Home.template.scss';
 
 export const HomeTemplate: React.FC = () => {
   return (
-    <Container component="main" maxWidth={false} className="home-template">
-      aaa
-    </Container>
+    <>
+      <HeaderComponent />
+      <Container component="main" maxWidth={false} className="home-template">
+        aaa
+      </Container>
+    </>
   );
 };
