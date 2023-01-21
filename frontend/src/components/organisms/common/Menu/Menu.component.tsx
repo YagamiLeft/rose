@@ -1,8 +1,10 @@
 // Reacts
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 // UIs
-import { Drawer, Box, Avatar, Divider, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { Apps, ContactMail, AssignmentInd, Home } from '@material-ui/icons';
+import { Drawer, Box, Divider, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { AccountCircle, Home } from '@material-ui/icons';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 // Styles
 import './Menu.component.scss';
 
@@ -12,33 +14,30 @@ interface MenuComponentProps {
 }
 
 export const MenuComponent: React.FC<MenuComponentProps> = ({ isOpenMenu, onCloseMenu }) => {
+  const navigate = useNavigate();
   const listItems = [
     {
       listIcon: <Home />,
       listText: 'Home',
+      navigate: () => navigate('/home'),
     },
     {
-      listIcon: <AssignmentInd />,
-      listText: 'Resume',
-    },
-    {
-      listIcon: <Apps />,
-      listText: 'Portfolio',
-    },
-    {
-      listIcon: <ContactMail />,
-      listText: 'Contacts',
+      listIcon: <AddTaskIcon />,
+      listText: 'TaskBoard',
+      navigate: () => navigate('/task-board'),
     },
   ];
 
   return (
     <Drawer className="menu-component" open={isOpenMenu} anchor="left" onClose={onCloseMenu}>
       <Box className="side-menu">
-        <Avatar className="menu-avater" src="https://i.ibb.co/rx5DFbs/avatar.png" alt="Juaneme8" />
+        <Box className="menu-avater">
+          <AccountCircle fontSize="large" />
+        </Box>
         <Divider />
         <List>
           {listItems.map((listItem, index) => (
-            <ListItem className="list-item" key={index}>
+            <ListItem className="list-item" key={index} onClick={listItem.navigate}>
               <ListItemIcon className="list-item">{listItem.listIcon}</ListItemIcon>
               <ListItemText className="list-item" primary={listItem.listText} />
             </ListItem>

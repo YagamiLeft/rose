@@ -1,0 +1,41 @@
+.task-area-component {
+  height: 100%;
+
+  .task-area-bar {
+    background: rgb(172, 29, 4);
+
+    .task-area-title {
+      flex-grow: 1;
+    }
+  }
+
+  .task-list-area {
+    height: 100%;
+    padding: 20px;
+    max-height: calc(100vh - 248px);
+    overflow-y: auto;
+
+    .task-item {
+      margin: 10px 0px;
+      padding: 20px;
+    }
+
+    .task-title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .task-detail {
+      font-size: 16px;
+    }
+
+    .task-button-area {
+      text-align: right;
+
+      .task-button {
+        color: white;
+        background: #f16272;
+      }
+    }
+  }
+}

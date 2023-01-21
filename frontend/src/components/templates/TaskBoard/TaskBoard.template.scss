@@ -1,0 +1,11 @@
+.task-board-template {
+  .tasks-area {
+    height: 100%;
+    display: flex;
+
+    .task-area {
+      margin: 0px 10px;
+      flex: 1;
+    }
+  }
+}
