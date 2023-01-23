@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 // Template
 import { TaskBoardTemplate, TaskBoardTemplateProps } from '../../components/templates/TaskBoard/TaskBoard.template';
 // Interfaces
-import { TaskRegistDialogComponentProps } from '../../components/organisms/specific/TaskRegistModal/TaskRegistDialog.component';
+import { MemoTaskRegistDialogComponentProps } from '../../components/organisms/specific/MemoTaskRegistDialog/MemoTaskRegistDialog.component';
 import { TaskAreaComponentProps } from '../../components/organisms/specific/TaskArea/TaskArea.component';
 
 interface TaskItem {
@@ -68,7 +68,7 @@ export const TaskBoardPage: React.FC = () => {
     onClickForwardButton,
   };
 
-  const taskRegistDialogComponentProps: TaskRegistDialogComponentProps = {
+  const memoTaskRegistDialogComponentProps: MemoTaskRegistDialogComponentProps = {
     isOpenDialog,
     onCkickRegistTask,
     onClickCloseDialog: () => setIsOpenDoalog(false),
@@ -80,7 +80,7 @@ export const TaskBoardPage: React.FC = () => {
     todoTaskAreaComponentProps,
     doingTaskAreaComponentProps,
     doneTaskAreaComponentProps,
-    taskRegistDialogComponentProps,
+    memoTaskRegistDialogComponentProps,
   };
 
   return <TaskBoardTemplate {...taskBoardTemplateProps} />;

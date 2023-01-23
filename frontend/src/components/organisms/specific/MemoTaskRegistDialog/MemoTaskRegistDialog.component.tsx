@@ -4,9 +4,9 @@ import React from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, TextField } from '@mui/material';
 import { Subtitles, Info } from '@material-ui/icons';
 // Styles
-import './TaskRegistDialog.component.scss';
+import './MemoTaskRegistDialog.component.scss';
 
-export interface TaskRegistDialogComponentProps {
+export interface MemoTaskRegistDialogComponentProps {
   isOpenDialog: boolean;
   onCkickRegistTask: () => void;
   onClickCloseDialog: () => void;
@@ -14,7 +14,7 @@ export interface TaskRegistDialogComponentProps {
   onChangeTaskDetail: (detail: string) => void;
 }
 
-export const TaskRegistDialogComponent: React.FC<TaskRegistDialogComponentProps> = ({
+export const MemoTaskRegistDialogComponent: React.FC<MemoTaskRegistDialogComponentProps> = ({
   isOpenDialog,
   onCkickRegistTask,
   onClickCloseDialog,

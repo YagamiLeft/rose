@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 // UIs
 import { Drawer, Box, Divider, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { AccountCircle, Home } from '@material-ui/icons';
+import { AccountCircle, Home, Schedule } from '@material-ui/icons';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 // Styles
 import './Menu.component.scss';
@@ -25,6 +25,11 @@ export const MenuComponent: React.FC<MenuComponentProps> = ({ isOpenMenu, onClos
       listIcon: <AddTaskIcon />,
       listText: 'TaskBoard',
       navigate: () => navigate('/task-board'),
+    },
+    {
+      listIcon: <Schedule />,
+      listText: 'Schedule',
+      navigate: () => navigate('/schedule'),
     },
   ];
 

@@ -1,0 +1,23 @@
+.schedule-template {
+  .title-area {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .help-icon {
+      margin-right: 10px;
+    }
+
+    .button-area {
+      margin-left: auto;
+
+      .project-button,
+      .task-button {
+        margin: 0px 5px;
+        width: 150px;
+        color: white;
+        background: #f16272;
+      }
+    }
+  }
+}

@@ -8,11 +8,6 @@ import ForwardIcon from '@mui/icons-material/Forward';
 // Styles
 import './TaskArea.component.scss';
 
-interface TaskItem {
-  taskTitle: string;
-  taskDetail: string;
-}
-
 export interface TaskAreaComponentProps {
   title: string;
   taskItems: {
