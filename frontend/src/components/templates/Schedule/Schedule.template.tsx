@@ -24,11 +24,13 @@ export interface ScheduleTemplateProps {
   scheduleTaskRegistDialogProps: ScheduleTaskRegistDialogProps;
   tasks: Task[];
   view: ViewMode;
+  columnWidth: number;
   onClickNewProjectButton: () => void;
   onClickNewTaskButton: () => void;
   onClickExpander: (selTask: Task) => void;
   onChangeTask: (selTask: Task) => void;
   onChangeProgress: (selTask: Task) => Promise<void>;
+  onChangeViewMode: (viewMode: ViewMode) => void;
   onDeleteTask: (selTask: Task) => boolean;
 }
 
@@ -37,11 +39,13 @@ export const ScheduleTemplate: React.FC<ScheduleTemplateProps> = ({
   scheduleTaskRegistDialogProps,
   tasks,
   view,
+  columnWidth,
   onClickNewProjectButton,
   onClickNewTaskButton,
   onClickExpander,
   onChangeTask,
   onChangeProgress,
+  onChangeViewMode,
   onDeleteTask,
 }) => {
   return (
@@ -66,15 +70,37 @@ export const ScheduleTemplate: React.FC<ScheduleTemplateProps> = ({
 
         {tasks.length !== 0 && (
           <Card elevation={10}>
-            <Gantt
-              tasks={tasks}
-              viewMode={view}
-              onDateChange={onChangeTask}
-              onDelete={onDeleteTask}
-              onProgressChange={onChangeProgress}
-              onExpanderClick={onClickExpander}
-              columnWidth={100}
-            />
+            <Box className="view-container">
+              <Box className="button-area">
+                <Button className="view-mode-button" onClick={() => onChangeViewMode(ViewMode.QuarterDay)}>
+                  Quarter of Day
+                </Button>
+                <Button className="view-mode-button" onClick={() => onChangeViewMode(ViewMode.HalfDay)}>
+                  Half of Day
+                </Button>
+                <Button className="view-mode-button" onClick={() => onChangeViewMode(ViewMode.Day)}>
+                  Day
+                </Button>
+                <Button className="view-mode-button" onClick={() => onChangeViewMode(ViewMode.Week)}>
+                  Week
+                </Button>
+                <Button className="view-mode-button" onClick={() => onChangeViewMode(ViewMode.Month)}>
+                  Month
+                </Button>
+              </Box>
+            </Box>
+            <Box className="gantt-container">
+              <Gantt
+                tasks={tasks}
+                viewMode={view}
+                onDateChange={onChangeTask}
+                onDelete={onDeleteTask}
+                onProgressChange={onChangeProgress}
+                onExpanderClick={onClickExpander}
+                columnWidth={columnWidth}
+                locale="ja"
+              />
+            </Box>
           </Card>
         )}
       </Container>

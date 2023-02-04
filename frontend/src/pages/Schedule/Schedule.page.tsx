@@ -10,96 +10,13 @@ import { ScheduleTaskRegistDialogProps } from '../../components/organisms/specif
 import { SelectChangeEvent } from '@mui/material';
 
 export const SchedulePage: React.FC = () => {
-  // const initTasks = () => {
-  //   const currentDate = new Date();
-  //   const tasks: Task[] = [
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-  //       name: 'Some Project',
-  //       id: 'ProjectSample',
-  //       progress: 25,
-  //       type: 'project',
-  //       hideChildren: false,
-  //     },
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2, 12, 28),
-  //       name: 'Idea',
-  //       id: 'Task 0',
-  //       progress: 45,
-  //       type: 'task',
-  //       project: 'ProjectSample',
-  //     },
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 2),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4, 0, 0),
-  //       name: 'Research',
-  //       id: 'Task 1',
-  //       progress: 25,
-  //       dependencies: ['Task 0'],
-  //       type: 'task',
-  //       project: 'ProjectSample',
-  //     },
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 4),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8, 0, 0),
-  //       name: 'Discussion with team',
-  //       id: 'Task 2',
-  //       progress: 10,
-  //       dependencies: ['Task 1'],
-  //       type: 'task',
-  //       project: 'ProjectSample',
-  //     },
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 9, 0, 0),
-  //       name: 'Developing',
-  //       id: 'Task 3',
-  //       progress: 2,
-  //       dependencies: ['Task 2'],
-  //       type: 'task',
-  //       project: 'ProjectSample',
-  //     },
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 8),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 10),
-  //       name: 'Review',
-  //       id: 'Task 4',
-  //       type: 'task',
-  //       progress: 70,
-  //       dependencies: ['Task 2'],
-  //       project: 'ProjectSample',
-  //     },
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-  //       name: 'Release',
-  //       id: 'Task 6',
-  //       progress: currentDate.getMonth(),
-  //       type: 'milestone',
-  //       dependencies: ['Task 4'],
-  //       project: 'ProjectSample',
-  //     },
-  //     {
-  //       start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-  //       end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 15),
-  //       name: 'Release',
-  //       id: 'Task 7',
-  //       progress: currentDate.getMonth(),
-  //       type: 'milestone',
-  //       dependencies: ['Task 4'],
-  //       project: 'ProjectSample',
-  //     },
-  //   ];
-  //   return tasks;
-  // };
-
-  const [view] = useState<ViewMode>(ViewMode.Day);
+  const [view, setView] = useState<ViewMode>(ViewMode.Day);
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const [projectName, setProjectname] = useState('');
   const [taskName, setTaskName] = useState('');
+
+  const [columnWidth, setColumnWidth] = useState(60);
 
   // ScheduleProjectRegistDialog States
   const [isOpenScheduleProjectRegistDialog, setIsOpenScheduleProjectRegistDialog] = useState(false);
@@ -169,9 +86,11 @@ export const SchedulePage: React.FC = () => {
   const onClickProjectRegistButton = () => {
     const dateRange = projectRange[0];
     const ganttTasks = tasks;
+    const endDate = dateRange.endDate!;
+    endDate.setHours(23, 59, 59);
     const mainProject: Task = {
       start: dateRange.startDate!,
-      end: dateRange.endDate!,
+      end: endDate,
       name: projectName,
       id: projectName,
       progress: 0,
@@ -197,9 +116,11 @@ export const SchedulePage: React.FC = () => {
   const onClickTaskRegistButton = () => {
     const dateRange = taskRange[0];
     const ganttTask = tasks;
+    const endDate = dateRange.endDate!;
+    endDate.setHours(23, 59, 59);
     const task: Task = {
       start: dateRange.startDate!,
-      end: dateRange.endDate!,
+      end: endDate,
       name: taskName,
       id: taskName,
       type: 'task',
@@ -226,6 +147,17 @@ export const SchedulePage: React.FC = () => {
     setMandatoryCompletionTask('');
   };
 
+  const onChangeViewMode = (viewMode: ViewMode) => {
+    setView(viewMode);
+    if (ViewMode.Day) {
+      setColumnWidth(60);
+    } else if (ViewMode.Month) {
+      setColumnWidth(300);
+    } else {
+      setColumnWidth(250);
+    }
+  };
+
   const scheduleProjectRegistDialogProps: ScheduleProjectRegistDialogProps = {
     isOpenScheduleProjectRegistDialog,
     projectRange,
@@ -234,7 +166,6 @@ export const SchedulePage: React.FC = () => {
     onChangeProjectName: (name: string) => setProjectname(name),
     onChangeProjectDateRange: (range: Range) => setProjectRange([range]),
   };
-
   const scheduleTaskRegistDialogProps: ScheduleTaskRegistDialogProps = {
     isOpenScheduleTaskRegistDialog,
     projectList,
@@ -249,17 +180,18 @@ export const SchedulePage: React.FC = () => {
     onChangeTaskName: (name: string) => setTaskName(name),
     onChangeTaskDateRange: (range: Range) => setTaskRange([range]),
   };
-
   const scheduleTemplateProps: ScheduleTemplateProps = {
     scheduleProjectRegistDialogProps,
     scheduleTaskRegistDialogProps,
     tasks,
     view,
+    columnWidth,
     onClickNewProjectButton: () => setIsOpenScheduleProjectRegistDialog(true),
     onClickNewTaskButton: () => setIsOpenScheduleTaskRegistDialog(true),
     onClickExpander,
     onChangeTask,
     onChangeProgress,
+    onChangeViewMode,
     onDeleteTask,
   };
   return <ScheduleTemplate {...scheduleTemplateProps} />;
