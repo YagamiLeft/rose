@@ -8,6 +8,7 @@ import { ScheduleProjectRegistDialogProps } from '../../components/organisms/spe
 import { Range } from 'react-date-range';
 import { ScheduleTaskRegistDialogProps } from '../../components/organisms/specific/ScheduleTaskRegistDialog/ScheduleTaskRegistDialog.component';
 import { SelectChangeEvent } from '@mui/material';
+import { ScheduleTaskDeleteDailogComponent } from '../../components/organisms/specific/ScheduleTaskDeleteDialog/ScheduleTaskDeleteDialog.component';
 
 export const SchedulePage: React.FC = () => {
   const [view, setView] = useState<ViewMode>(ViewMode.Day);
@@ -27,8 +28,7 @@ export const SchedulePage: React.FC = () => {
       key: 'selection',
     },
   ]);
-
-  // ScheduletaskRegistDialog States
+  // ScheduleTaskRegistDialog States
   const [isOpenScheduleTaskRegistDialog, setIsOpenScheduleTaskRegistDialog] = useState(false);
   const [projectList, setProjectList] = useState<Task[]>([]);
   const [taskList, setTaskList] = useState<Task[]>([]);
@@ -41,6 +41,8 @@ export const SchedulePage: React.FC = () => {
   ]);
   const [relatedProject, setRelatedProject] = useState('');
   const [mandatoryCompletionTask, setMandatoryCompletionTask] = useState('');
+  // ScheduleTaskDeleteDialog States
+  const [isOpenScheduleTaskDeleteDialog, setIsOpenScheduleTaskDeleteDialog] = useState(false);
 
   const getStartEndDateForProject = (tasks: Task[], projectId: string) => {
     const projectTasks = tasks.filter((task) => task.project === projectId);
@@ -158,6 +160,14 @@ export const SchedulePage: React.FC = () => {
     }
   };
 
+  const onClickDeleteTask = (taskIndex: number) => {
+    const deleteSpecificTasks = tasks.filter((_, index) => index !== taskIndex);
+    setTasks(deleteSpecificTasks);
+
+    const onlyTaskList = deleteSpecificTasks.filter((task) => task.type === 'task');
+    setTaskList(onlyTaskList);
+  };
+
   const scheduleProjectRegistDialogProps: ScheduleProjectRegistDialogProps = {
     isOpenScheduleProjectRegistDialog,
     projectRange,
@@ -180,14 +190,22 @@ export const SchedulePage: React.FC = () => {
     onChangeTaskName: (name: string) => setTaskName(name),
     onChangeTaskDateRange: (range: Range) => setTaskRange([range]),
   };
+  const scheduleTaskDeleteDialogProps: ScheduleTaskDeleteDailogComponent = {
+    isOpenScheduleTaskDeleteDialog,
+    tasks,
+    onClickCloseButton: () => setIsOpenScheduleTaskDeleteDialog(false),
+    onClickDeleteTask,
+  };
   const scheduleTemplateProps: ScheduleTemplateProps = {
     scheduleProjectRegistDialogProps,
     scheduleTaskRegistDialogProps,
+    scheduleTaskDeleteDialogProps,
     tasks,
     view,
     columnWidth,
     onClickNewProjectButton: () => setIsOpenScheduleProjectRegistDialog(true),
     onClickNewTaskButton: () => setIsOpenScheduleTaskRegistDialog(true),
+    onClickDeleteTaskButton: () => setIsOpenScheduleTaskDeleteDialog(true),
     onClickExpander,
     onChangeTask,
     onChangeProgress,

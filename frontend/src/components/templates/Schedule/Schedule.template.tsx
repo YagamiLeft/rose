@@ -15,6 +15,10 @@ import {
   ScheduleTaskRegistDialog,
   ScheduleTaskRegistDialogProps,
 } from '../../organisms/specific/ScheduleTaskRegistDialog/ScheduleTaskRegistDialog.component';
+import {
+  ScheduleTaskDeleteDailogComponent,
+  ScheduleTaskDeleteDialogComponent,
+} from '../../organisms/specific/ScheduleTaskDeleteDialog/ScheduleTaskDeleteDialog.component';
 // Styles
 import 'gantt-task-react/dist/index.css';
 import './Schedule.template.scss';
@@ -22,11 +26,13 @@ import './Schedule.template.scss';
 export interface ScheduleTemplateProps {
   scheduleProjectRegistDialogProps: ScheduleProjectRegistDialogProps;
   scheduleTaskRegistDialogProps: ScheduleTaskRegistDialogProps;
+  scheduleTaskDeleteDialogProps: ScheduleTaskDeleteDailogComponent;
   tasks: Task[];
   view: ViewMode;
   columnWidth: number;
   onClickNewProjectButton: () => void;
   onClickNewTaskButton: () => void;
+  onClickDeleteTaskButton: () => void;
   onClickExpander: (selTask: Task) => void;
   onChangeTask: (selTask: Task) => void;
   onChangeProgress: (selTask: Task) => Promise<void>;
@@ -37,11 +43,13 @@ export interface ScheduleTemplateProps {
 export const ScheduleTemplate: React.FC<ScheduleTemplateProps> = ({
   scheduleProjectRegistDialogProps,
   scheduleTaskRegistDialogProps,
+  scheduleTaskDeleteDialogProps,
   tasks,
   view,
   columnWidth,
   onClickNewProjectButton,
   onClickNewTaskButton,
+  onClickDeleteTaskButton,
   onClickExpander,
   onChangeTask,
   onChangeProgress,
@@ -53,6 +61,7 @@ export const ScheduleTemplate: React.FC<ScheduleTemplateProps> = ({
       <HeaderComponent />
       <ScheduleProjectRegistDialog {...scheduleProjectRegistDialogProps} />
       <ScheduleTaskRegistDialog {...scheduleTaskRegistDialogProps} />
+      <ScheduleTaskDeleteDialogComponent {...scheduleTaskDeleteDialogProps} />
       <Container component="main" maxWidth={false} className="schedule-template">
         <Box className="title-area">
           <HelpOutlineIcon className="help-icon" />
@@ -64,6 +73,9 @@ export const ScheduleTemplate: React.FC<ScheduleTemplateProps> = ({
             </Button>
             <Button className="task-button" onClick={onClickNewTaskButton}>
               New Task
+            </Button>
+            <Button className="task-button" onClick={onClickDeleteTaskButton}>
+              Delete Task
             </Button>
           </Box>
         </Box>
